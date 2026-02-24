@@ -29,7 +29,7 @@ auto_clicker 是一款简单易用的鼠标连点器工具，能够帮助用户�
 打开命令提示符，进入项目目录，执行以下命令安装所需依赖：
 
 ```bash
-pip install pyautogui keyboard
+pip install -r requirements.txt
 ```
 
 ## 使用方法
