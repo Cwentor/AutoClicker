@@ -33,7 +33,7 @@
 
 ### 方式一：下载 EXE（推荐）
 
-1. 前往 [Releases](../../releases) 页面下载最新的 `鼠标连点器.exe`
+1. 前往 [Releases](../../releases) 页面下载最新的 `AutoClicker.exe`
 2. 双击运行即可，**无需安装 Python 和任何依赖**
 
 > 💡 也可以自行打包，参见 [打包为 EXE](#-打包为-exe) 一节。
@@ -63,7 +63,9 @@ python auto_clicker.py
 build_windows.bat
 ```
 
-打包完成后，可执行文件位于 **`dist\鼠标连点器.exe`**（单文件、无控制台窗口）。
+打包完成后，可执行文件位于 **`dist\AutoClicker.exe`**（单文件、无控制台窗口）。
+
+> 💡 产物使用英文文件名，以避免中文文件名在 GitHub Release 上传时出现编码问题。
 
 也可以手动执行 PyInstaller：
 

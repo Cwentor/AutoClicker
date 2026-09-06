@@ -51,6 +51,6 @@ if errorlevel 1 (
 
 echo.
 echo ==========================================
-echo   打包完成！可执行文件位于 dist\鼠标连点器.exe
+echo   打包完成！可执行文件位于 dist\AutoClicker.exe
 echo ==========================================
 pause

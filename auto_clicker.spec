@@ -2,7 +2,7 @@
 """PyInstaller 打包配置。
 
 用法：在项目根目录执行  pyinstaller auto_clicker.spec
-产物：dist/鼠标连点器.exe（单文件、无控制台窗口）
+产物：dist/AutoClicker.exe（单文件、无控制台窗口）
 """
 
 a = Analysis(
@@ -25,7 +25,7 @@ exe = EXE(
     a.binaries,
     a.datas,
     [],
-    name='鼠标连点器',
+    name='AutoClicker',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
