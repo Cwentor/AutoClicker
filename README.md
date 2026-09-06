@@ -7,7 +7,7 @@
 [![Python](https://img.shields.io/badge/Python-3.9+-3776AB?logo=python&logoColor=white)](https://www.python.org/)
 [![Platform](https://img.shields.io/badge/Platform-Windows-0078D4?logo=windows11&logoColor=white)](#-快速开始)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Release](https://img.shields.io/badge/Version-v1.1-orange)](#-更新日志)
+[![Release](https://img.shields.io/badge/Version-v1.3-orange)](#-更新日志)
 
 *图形化界面 · 快捷键控制 · 支持打包为独立 EXE*
 
@@ -17,11 +17,12 @@
 
 ## 📖 项目简介
 
-**auto_clicker** 是一款基于 Python + Tkinter 开发的鼠标连点器，能够帮助用户自动执行鼠标点击操作，适用于游戏挂机、数据录入、重复测试等各种需要重复点击的场景。
+**auto_clicker** 是一款基于 Python + PySide6（Qt6）开发的鼠标连点器，能够帮助用户自动执行鼠标点击操作，适用于游戏挂机、数据录入、重复测试等各种需要重复点击的场景。
 
 ## ✨ 功能特点
 
-- 🎯 **自定义点击间隔** —— 精确到 0.01 秒，输入实时校验，杜绝非法配置
+- 🎨 **液态毛玻璃界面** —— 实时高斯模糊的磨砂背景 + 白玻璃卡片 + 分段式控件
+- 🎯 **自定义点击间隔** —— 精确到 0.01 秒，输入实时校验，快捷预设一键填入
 - 🖱️ **左键 / 右键切换** —— 自由选择需要自动点击的鼠标按键
 - ⌨️ **全局快捷键** —— 无需切换窗口，随时开始 / 暂停 / 停止
 - 📊 **实时状态显示** —— 待机、连点中、已暂停一目了然
@@ -96,7 +97,7 @@ pyinstaller auto_clicker.spec --noconfirm
 |:----|:-----|
 | [pyautogui](https://pypi.org/project/PyAutoGUI/) | 模拟鼠标点击操作 |
 | [keyboard](https://pypi.org/project/keyboard/) | 全局键盘快捷键监听 |
-| tkinter | 图形化界面（Python 标准库） |
+| [PySide6](https://pypi.org/project/PySide6/) | 图形化界面（Qt6）与毛玻璃效果 |
 | PyInstaller | 打包为独立 EXE（开发依赖） |
 
 ## ❓ 故障排除
@@ -137,6 +138,22 @@ PyInstaller 打包的单文件 EXE 偶尔会被杀毒软件误报，可添加信
 ## 🗓️ 更新日志
 
 <details open>
+<summary><b>v1.3</b></summary>
+
+- 🪟 界面迁移至 PySide6（Qt6），彻底解决 Tkinter 透明方案的文字重影与模糊问题
+- 🧊 真实液态毛玻璃：抓取窗口背后的桌面内容实时高斯模糊，浅白磨砂卡片 + 深色文字，拖动后自动刷新
+- 🖼️ 自绘无边框窗口：自绘标题栏支持拖动、最小化、关闭，窗口圆角
+</details>
+
+<details>
+<summary><b>v1.2</b></summary>
+
+- 🎨 界面全面重构为液态毛玻璃风格：Windows 11 DWM 亚克力背景、窗口圆角、深色玻璃卡片
+- 🎛️ 关键控件重新设计：分段式左/右键选择器、间隔快捷预设、大号主操作按钮
+- 💡 新增运行状态指示灯（连点时呼吸闪烁），支持鼠标直接点击开始/暂停
+</details>
+
+<details>
 <summary><b>v1.1</b></summary>
 
 - ✨ 新增实时运行状态显示栏（待机 / 连点中 / 已暂停）
