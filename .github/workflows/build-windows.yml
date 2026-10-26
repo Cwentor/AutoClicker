@@ -44,8 +44,20 @@ jobs:
           releaseBody: '下载 `AutoClicker_*_x64-setup.exe` 安装，或下载免安装的 `AutoClicker.exe`。'
           releaseDraft: false
           prerelease: false
-          # 免安装单文件 exe 直接挂到 Release，不用再单独传一次
-          uploadPlainBinary: true
+          # 不用 uploadPlainBinary：它的文档明确要求配合 --no-bundle 使用，
+          # 而我们同时要出 NSIS 安装包。免安装 exe 走下面单独的 gh release upload。
+          uploadPlainBinary: false
+
+      # 免安装单文件 exe 手动挂到 Release（tauri-action 只管 bundle）
+      - name: Upload portable exe to Release
+        if: startsWith(github.ref, 'refs/tags/')
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release upload "${GITHUB_REF_NAME}" \
+            src-tauri/target/release/AutoClicker.exe \
+            --clobber --repo "${GITHUB_REPOSITORY}"
 
       - name: Upload portable exe
         uses: actions/upload-artifact@v7
