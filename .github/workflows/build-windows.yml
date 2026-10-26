@@ -49,3 +49,10 @@ jobs:
         with:
           name: AutoClicker-portable
           path: src-tauri/target/release/AutoClicker.exe
+
+      # artifact 只在 Actions 页面可见，发布说明里承诺了免安装版，所以也挂到 Release
+      - name: Attach portable exe to release
+        if: startsWith(github.ref, 'refs/tags/')
+        run: gh release upload "${{ github.ref_name }}" src-tauri/target/release/AutoClicker.exe --clobber
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
