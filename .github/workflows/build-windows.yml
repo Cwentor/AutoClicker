@@ -14,10 +14,10 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
           node-version: 22
           cache: npm
@@ -33,26 +33,22 @@ jobs:
       - name: Install frontend dependencies
         run: npm ci
 
+      # 仅 tag 触发时发布 Release；手动触发时 tagName 为空，只构建不发布
       - name: Build Tauri app
-        uses: tauri-apps/tauri-action@v0
+        uses: tauri-apps/tauri-action@action-v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tagName: ${{ github.ref_name }}
-          releaseName: 'AutoClicker ${{ github.ref_name }}'
+          tagName: ${{ startsWith(github.ref, 'refs/tags/') && github.ref_name || '' }}
+          releaseName: ${{ startsWith(github.ref, 'refs/tags/') && format('AutoClicker {0}', github.ref_name) || '' }}
           releaseBody: '下载 `AutoClicker_*_x64-setup.exe` 安装，或下载免安装的 `AutoClicker.exe`。'
           releaseDraft: false
           prerelease: false
+          # 免安装单文件 exe 直接挂到 Release，不用再单独传一次
+          uploadPlainBinary: true
 
       - name: Upload portable exe
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: AutoClicker-portable
           path: src-tauri/target/release/AutoClicker.exe
-
-      # artifact 只在 Actions 页面可见，发布说明里承诺了免安装版，所以也挂到 Release
-      - name: Attach portable exe to release
-        if: startsWith(github.ref, 'refs/tags/')
-        run: gh release upload "${{ github.ref_name }}" src-tauri/target/release/AutoClicker.exe --clobber
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
