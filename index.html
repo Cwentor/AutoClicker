@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>鼠标连点器</title>
+    <link rel="stylesheet" href="/src/style.css" />
+    <script type="module" src="/src/main.ts" defer></script>
+  </head>
+
+  <body>
+    <div class="app">
+      <header class="titlebar" data-tauri-drag-region>
+        <span class="titlebar__title" data-tauri-drag-region>鼠标连点器</span>
+        <div class="titlebar__actions">
+          <button id="btn-min" class="win-btn" type="button" aria-label="最小化" title="最小化">—</button>
+          <button id="btn-close" class="win-btn win-btn--close" type="button" aria-label="关闭" title="关闭">✕</button>
+        </div>
+      </header>
+
+      <main class="body">
+        <div class="hero">
+          <h1 class="hero__title">鼠标连点器</h1>
+          <p class="hero__subtitle">自动点击 · 全局快捷键控制 · v2.0</p>
+        </div>
+
+        <section class="card status">
+          <span id="dot" class="dot" data-phase="idle"></span>
+          <p id="status-text" class="status__text">待机</p>
+          <p class="status__meta">
+            <span id="meta-clicks"><span id="click-count">0</span> 次点击</span>
+            <span id="meta-hint" class="status__warn" hidden>把鼠标移出窗口，否则会被自己点停</span>
+          </p>
+        </section>
+
+        <section class="card">
+          <p class="card__label">点击间隔</p>
+          <div class="interval">
+            <input
+              id="interval"
+              class="field"
+              type="text"
+              inputmode="decimal"
+              value="0.1"
+              autocomplete="off"
+              spellcheck="false"
+            />
+            <span class="interval__unit">秒</span>
+          </div>
+          <div class="presets">
+            <span class="hint">预设</span>
+            <button class="chip" type="button" data-preset="0.05">0.05</button>
+            <button class="chip" type="button" data-preset="0.1">0.1</button>
+            <button class="chip" type="button" data-preset="0.5">0.5</button>
+            <button class="chip" type="button" data-preset="1">1</button>
+            <span class="hint hint--right">最小 0.01 秒</span>
+          </div>
+        </section>
+
+        <section class="card card--row">
+          <p class="card__label">点击按钮</p>
+          <div class="segmented" id="segmented">
+            <button class="seg" type="button" data-button="left">左键</button>
+            <button class="seg" type="button" data-button="right">右键</button>
+          </div>
+        </section>
+
+        <section class="card card--row">
+          <p class="card__label">启动延迟</p>
+          <div class="segmented segmented--sm" id="delay-segmented">
+            <button class="seg" type="button" data-delay="0">关</button>
+            <button class="seg" type="button" data-delay="1000">1s</button>
+            <button class="seg" type="button" data-delay="3000">3s</button>
+            <button class="seg" type="button" data-delay="5000">5s</button>
+          </div>
+        </section>
+
+        <button id="action" class="action" type="button">开始连点</button>
+
+        <footer class="footer">
+          <p class="hint">
+            <kbd>CTRL</kbd> + <kbd>ALT</kbd> 或 <kbd>F9</kbd> 开始 / 暂停　　<kbd>ALT</kbd> + <kbd>Q</kbd>
+            或 <kbd>F10</kbd> 停止
+          </p>
+          <p class="hint hint--dim">紧急停止：将鼠标快速移至屏幕左上角</p>
+          <p class="hint hint--dim" id="hotkey-status">热键监听中</p>
+          <p class="hint hint--dim effect">
+            窗口特效
+            <button class="chip chip--mini" type="button" data-effect="mica">Mica</button>
+            <button class="chip chip--mini" type="button" data-effect="acrylic">Acrylic</button>
+          </p>
+        </footer>
+      </main>
+    </div>
+  </body>
+</html>

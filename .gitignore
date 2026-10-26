@@ -1,5 +1,17 @@
-__pycache__/
+# 前端
+node_modules/
 dist/
-build/
+
+# Rust / Tauri
+src-tauri/target/
+src-tauri/gen/schemas/
+
+# 旧版 Python 实现（仅存档）
+legacy/
+__pycache__/
 .venv/
+
+# 杂项
 *.exe
+.DS_Store
+.workbuddy/

@@ -1,0 +1,45 @@
+[package]
+name = "auto-clicker"
+version = "2.0.0"
+description = "鼠标连点器 - Windows 自动点击工具"
+authors = ["Cat-Drink"]
+edition = "2021"
+
+[lib]
+# `_lib` 后缀避免与 bin 同名冲突（Windows 上的 cargo 已知问题）
+name = "auto_clicker_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = [] }
+tauri-plugin-single-instance = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+# 鼠标点击注入：Windows 下同样走 SendInput
+enigo = "0.6"
+# 混合自旋等待，保证毫秒级间隔精度
+spin_sleep = "1.3"
+# 窗口毛玻璃 / Mica
+window-vibrancy = "0.8"
+raw-window-handle = "0.6"
+
+[target.'cfg(windows)'.dependencies]
+# 低级键盘钩子 + DWM 圆角（纯 FFI，签名稳定）
+windows-sys = { version = "0.61", features = [
+  "Win32_Foundation",
+  "Win32_Graphics_Dwm",
+  "Win32_System_LibraryLoader",
+  "Win32_UI_Input_KeyboardAndMouse",
+  "Win32_UI_WindowsAndMessaging",
+] }
+
+# 体积优化：https://tauri.app/concept/size/#cargo-configuration
+[profile.release]
+codegen-units = 1
+lto = true
+opt-level = 3
+panic = "abort"
+strip = true
